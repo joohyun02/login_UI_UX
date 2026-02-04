@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Login from "./Login";
 import Signup from "./Signup";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 function App() {
   const [page, setPage] = useState("login");
@@ -9,7 +10,6 @@ function App() {
 
   useEffect(() => {
     // ⚠️ CI(Eslint) 통과를 위해 effect 내부에서 환경변수 읽기
-    const API_BASE = process.env.REACT_APP_API_BASE;
 
     const token = localStorage.getItem("accessToken");
     if (!token) return;
@@ -31,7 +31,7 @@ function App() {
         localStorage.removeItem("accessToken");
         setPage("login");
       });
-  }, [setUserName, setPage]); // 🔥 API_BASE 넣지 않음 (CI 핵심)
+  }, []); // 🔥 API_BASE 넣지 않음 (CI 핵심)
 
   if (page === "login") {
     return (
