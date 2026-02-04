@@ -6,34 +6,32 @@ function App() {
   const [page, setPage] = useState("login");
   const [id, setId] = useState("");
   const [userName, setUserName] = useState("");
-  const API_BASE = process.env.REACT_APP_API_BASE;
 
   useEffect(() => {
-  const API_BASE = process.env.REACT_APP_API_BASE; // 🔥 여기로 이동
+    // ⚠️ CI(Eslint) 통과를 위해 effect 내부에서 환경변수 읽기
+    const API_BASE = process.env.REACT_APP_API_BASE;
 
-  const token = localStorage.getItem("accessToken");
-  if (!token) return;
+    const token = localStorage.getItem("accessToken");
+    if (!token) return;
 
-  fetch(`${API_BASE}/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then(res => {
-      if (!res.ok) throw new Error();
-      return res.json();
+    fetch(`${API_BASE}/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .then(data => {
-      setUserName(data.name);
-      setPage("success");
-    })
-    .catch(() => {
-      localStorage.removeItem("accessToken");
-    });
-}, [setUserName, setPage]);
-
-
-
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then((data) => {
+        setUserName(data.name);
+        setPage("success");
+      })
+      .catch(() => {
+        localStorage.removeItem("accessToken");
+        setPage("login");
+      });
+  }, [setUserName, setPage]); // 🔥 API_BASE 넣지 않음 (CI 핵심)
 
   if (page === "login") {
     return (
