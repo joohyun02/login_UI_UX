@@ -9,26 +9,27 @@ function App() {
   const API_BASE = process.env.REACT_APP_API_BASE;
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) return;
+  const token = localStorage.getItem("accessToken");
+  if (!token) return;
 
-    fetch(`${API_BASE}/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  fetch(`${API_BASE}/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(res => {
+      if (!res.ok) throw new Error();
+      return res.json();
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then(data => {
-        setUserName(data.name);
-        setPage("success");
-      })
-      .catch(() => {
-        localStorage.removeItem("accessToken");
-      });
-  }, [API_BASE]);
+    .then(data => {
+      setUserName(data.name);
+      setPage("success");
+    })
+    .catch(() => {
+      localStorage.removeItem("accessToken");
+    });
+}, [API_BASE, setUserName, setPage]);
+
 
   if (page === "login") {
     return (
