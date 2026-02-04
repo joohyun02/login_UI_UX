@@ -9,6 +9,8 @@ function App() {
   const API_BASE = process.env.REACT_APP_API_BASE;
 
   useEffect(() => {
+  const API_BASE = process.env.REACT_APP_API_BASE; // 🔥 여기로 이동
+
   const token = localStorage.getItem("accessToken");
   if (!token) return;
 
@@ -28,7 +30,8 @@ function App() {
     .catch(() => {
       localStorage.removeItem("accessToken");
     });
-}, [API_BASE, setUserName, setPage]);
+}, [setUserName, setPage]);
+
 
 
 
