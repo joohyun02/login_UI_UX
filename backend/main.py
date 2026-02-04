@@ -11,7 +11,7 @@ security = HTTPBearer()
 
 SECRET_KEY = "dev-secret-key"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 1
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
@@ -136,3 +136,4 @@ def read_me(credentials: HTTPAuthorizationCredentials = Depends(security)):
         "name": user["name"],
         "email": user["email"],
     }
+
