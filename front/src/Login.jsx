@@ -9,7 +9,7 @@ function Login({ id, setId, setUserName, setPage }) {
   const idRef = useRef(null);
   const pwRef = useRef(null);
 
-  const API_BASE = "https://login-ui-ux.onrender.com";
+  const API_BASE = process.env.REACT_APP_API_BASE;
 
   const handleLogin = async () => {
     setError("");

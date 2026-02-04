@@ -9,7 +9,7 @@ function Signup({ setPage }) {
   const [userEmail, setUserEmail] = useState("");
   const [check, setCheck] = useState(false);
 
-  const API_BASE = "https://login-ui-ux.onrender.com";
+  const API_BASE = process.env.REACT_APP_API_BASE;
 
 
   const [errors, setErrors] = useState({

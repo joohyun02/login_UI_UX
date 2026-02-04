@@ -6,7 +6,7 @@ function App() {
   const [page, setPage] = useState("login");
   const [id, setId] = useState("");
   const [userName, setUserName] = useState("");
-  const API_BASE = "https://login-ui-ux.onrender.com";
+  const API_BASE = process.env.REACT_APP_API_BASE;
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -28,7 +28,7 @@ function App() {
       .catch(() => {
         localStorage.removeItem("accessToken");
       });
-  }, []);
+  }, [API_BASE]);
 
   if (page === "login") {
     return (
